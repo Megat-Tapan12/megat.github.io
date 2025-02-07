@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe Calculator</title>
+    <link rel="icon" type="image/jpeg" href="logo batang buruk.jpeg">
+    <Link rel="stylesheet" href="Onde.css">
+    <style>
+        .form-box {
+            flex: 1;
+            text-align: left;
+        }
+        .form-box input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+            margin-bottom: 20px;
+        }
+        .form-box button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #28a745;
+            border: 2px solid navy;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        .form-box button:hover {
+            background-color: #FFDB58;
+            color: #014D4E;
+        }
+        .back-to-home {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .back-to-home a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #723C2F;
+            text-decoration: none;
+            border-radius: 12px;
+            border: 2px solid navy;
+            transition: background-color 0.3s ease;
+        }
+        .back-to-home a:hover {
+            color: #014D4E;
+            background-color: #FFDB58;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kuih Onde-Onde Recipe Calculator</h1>
+    <div class="container">
+        <div class="image-box">
+            <img src="Ondex2.jpeg" alt="Kuih Onde-Onde">
+        </div>
+        <div class="form-box">
+            <form id="recipeForm">
+                <label for="quantity">How many Kuih Onde-Onde do you want to make?</label><br>
+                <input type="number" id="quantity" name="quantity" min="1" placeholder="Enter quantity" required><br>
+                <button type="button" onclick="calculateIngredients()">Calculate Ingredients</button>
+            </form>
+            
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+    
+    <div class="back-to-home">
+        <a href="login.html">Back to Homepage</a>
+    </div>
+    <script>
+    
+        const baseRecipe = {
+            glutinousRiceFlour: 200, 
+            water: 120,              
+            palmSugar: 100,         
+            gratedCoconut: 100,      
+            salt: 0.5,               
+            pandanLeaves: 2       
+        };
+        function calculateIngredients() {
+            const quantity = document.getElementById('quantity').value;
+            if (!quantity || quantity <= 0) {
+                alert("Please enter a valid number of Kuih Onde-Onde.");
+                return;
+            }
+            
+            const scaleFactor = quantity / 10;
+            
+            const glutinousRiceFlour = Math.round(baseRecipe.glutinousRiceFlour * scaleFactor);
+            const water = Math.round(baseRecipe.water * scaleFactor);
+            const palmSugar = Math.round(baseRecipe.palmSugar * scaleFactor);
+            const gratedCoconut = Math.round(baseRecipe.gratedCoconut * scaleFactor);
+            const salt = (baseRecipe.salt * scaleFactor).toFixed(2);
+            const pandanLeaves = Math.ceil(baseRecipe.pandanLeaves * scaleFactor); // Round up pandan leaves
+            
+            document.getElementById('result').innerHTML = `
+                <p><strong>For ${quantity} Kuih Onde-Onde, you will need:</strong></p>
+                <ul>
+                    <li>${glutinousRiceFlour} grams of glutinous rice flour</li>
+                    <li>${water} milliliters of water</li>
+                    <li>${palmSugar} grams of palm sugar</li>
+                    <li>${gratedCoconut} grams of grated coconut</li>
+                    <li>${salt} teaspoons of salt</li>
+                    <li>${pandanLeaves} pandan leaves</li>
+                </ul>
+            `;
+        }
+    </script>
+</body>
+</html>

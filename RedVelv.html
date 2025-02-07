@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe Calculator</title>
+    <link rel="website icon" type="jpeg" href="logo batang buruk.jpeg">
+    <link rel="stylesheet" href="Velvet.css">
+    <style>
+        /* Styles for form */
+        .form-box {
+            flex: 1;
+            text-align: left;
+        }
+        .form-box input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+            margin-bottom: 20px;
+        }
+        .form-box button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #28a745;
+            border: 2px solid navy;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+        .form-box button:hover {
+            color: #014D4E;
+            background-color: #FFDB58;
+        }
+        /* Back to Homepage Button */
+        .back-to-home {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .back-to-home a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #723C2F;
+            text-decoration: none;
+            border-radius: 12px;
+            border: 2px solid navy;
+            transition: background-color 0.3s ease;
+        }
+        .back-to-home a:hover {
+            color: #014D4E;
+            background-color: #FFDB58;
+        }
+    </style>
+</head>
+<body>
+    <h1>Red Velvet Cookies Recipe Calculator</h1>
+    <div class="container">
+        <div class="image-box">
+            <img src="RedV1.jpg" alt="Red Velvet Cookies">
+        </div>
+        <div class="form-box">
+            <form id="recipeForm">
+                <label for="quantity">How many cookies do you want to make?</label><br>
+                <input type="number" id="quantity" name="quantity" min="1" placeholder="Enter quantity" required><br>
+                <button type="button" onclick="calculateIngredients()">Calculate Ingredients</button>
+            </form>
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+    <div class="back-to-home">
+        <a href="login.html">Back to Homepage</a>
+    </div>
+    <script>
+        function calculateIngredients() {
+            const baseIngredients = {
+                flour: 150, 
+                cocoaPowder: 10, 
+                bakingSoda: 1, 
+                salt: 0.5, 
+                butter: 100, 
+                sugar: 150, 
+                eggs: 1, 
+                vanillaExtract: 1, 
+                redFoodColoring: 1, 
+                buttermilk: 60 
+            };
+            // Get user input
+            const quantity = document.getElementById('quantity').value;
+            if (!quantity || quantity <= 0) {
+                alert("Please enter a valid quantity for cookies.");
+                return;
+            }
+
+            const scaleFactor = quantity / 12;
+
+
+            const totalIngredients = {
+                flour: (baseIngredients.flour * scaleFactor).toFixed(2),
+                cocoaPowder: (baseIngredients.cocoaPowder * scaleFactor).toFixed(2),
+                bakingSoda: (baseIngredients.bakingSoda * scaleFactor).toFixed(2),
+                salt: (baseIngredients.salt * scaleFactor).toFixed(2),
+                butter: (baseIngredients.butter * scaleFactor).toFixed(2),
+                sugar: (baseIngredients.sugar * scaleFactor).toFixed(2),
+                eggs: Math.ceil(baseIngredients.eggs * scaleFactor),
+                vanillaExtract: (baseIngredients.vanillaExtract * scaleFactor).toFixed(2),
+                redFoodColoring: (baseIngredients.redFoodColoring * scaleFactor).toFixed(2),
+                buttermilk: (baseIngredients.buttermilk * scaleFactor).toFixed(2)
+            };
+
+            
+            document.getElementById('result').innerHTML = `
+                <p><strong>For ${quantity} cookies, you will need:</strong></p>
+                <ul>
+                    <li>${totalIngredients.flour} grams of flour</li>
+                    <li>${totalIngredients.cocoaPowder} grams of cocoa powder</li>
+                    <li>${totalIngredients.bakingSoda} teaspoons of baking soda</li>
+                    <li>${totalIngredients.salt} teaspoons of salt</li>
+                    <li>${totalIngredients.butter} grams of butter</li>
+                    <li>${totalIngredients.sugar} grams of sugar</li>
+                    <li>${totalIngredients.eggs} eggs</li>
+                    <li>${totalIngredients.vanillaExtract} teaspoons of vanilla extract</li>
+                    <li>${totalIngredients.redFoodColoring} teaspoons of red food coloring</li>
+                    <li>${totalIngredients.buttermilk} milliliters of buttermilk</li>
+                </ul>
+            `;
+        }
+    </script>
+</body>
+</html>
